@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="DrinksApp.View.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
+    xmlns:model="clr-namespace:DrinksApp.Model"
+    Title="{Binding Drink.Name}"
+    x:DataType="viewmodel:DrinkDetailsViewModel">
+
+
+    <StackLayout>
+        <StackLayout>
+
+            <BoxView
+    BackgroundColor="{StaticResource Primary}"
+    Grid.RowSpan="4"
+    HorizontalOptions="Fill"
+    VerticalOptions="Fill"/>
+
+            <Border StrokeShape="RoundRectangle 80"
+        Stroke="White"
+        StrokeThickness="6"
+        HeightRequest="160"
+        WidthRequest="160"
+        Margin="0,8,0,0"
+        HorizontalOptions="Center"
+        VerticalOptions="Center">
+                <Image Aspect="AspectFill"
+            HeightRequest="160"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Source="{Binding Drink.ThumbnailUrl}"
+            WidthRequest="160"/>
+            </Border>
+        </StackLayout>
+        <StackLayout Padding="10">
+            <Label Text="{Binding Drink.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding Drink.Category}" FontSize="Subtitle" HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding Drink.Instructions}" HorizontalOptions="CenterAndExpand" />
+
+            <Label Text="Ingredients:" FontSize="Subtitle" HorizontalOptions="CenterAndExpand" />
+            <CollectionView ItemsSource="{Binding Drink.Ingredients}" SelectionMode="None">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="model:Ingredient">
+                        <StackLayout Padding="10" HorizontalOptions="CenterAndExpand">
+                            <Label Text="{Binding Name}" />
+                            <Label Text="{Binding Measure}" />
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+        </StackLayout>
+
+        <VerticalStackLayout Grid.Row="8" Padding="10" Spacing="10">
+            <Button Text="Add to library!" 
+                Command="{Binding SaveCommand}"
+                HorizontalOptions="Center" 
+                WidthRequest="200" 
+                Margin="8"
+                Style="{StaticResource ButtonOutline}"/>
+
+        </VerticalStackLayout>
+    </StackLayout>
+</ContentPage>
