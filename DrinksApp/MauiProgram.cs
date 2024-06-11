@@ -37,8 +37,6 @@ namespace DrinksApp
             builder.Services.AddSingleton<DrinksDatabase>();
             builder.Services.AddScoped<IDrinkMapper, DrinkMapper>();
 
-
-
             return builder.Build();
         }
     }

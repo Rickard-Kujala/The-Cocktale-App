@@ -8,6 +8,5 @@ namespace DrinksApp
             InitializeComponent();
             MainPage = new AppShell();
         }
-        
     }
 }

@@ -29,6 +29,12 @@ namespace DrinksApp.Data
             var result = await Database.CreateTableAsync<DrinkDbItem>();
             var result2 = await Database.CreateTableAsync<Ingredient>();
         }
+        public async Task DeleteAll()
+        {
+            await Init();
+            await Database.DeleteAllAsync<Ingredient>();
+            await Database.DeleteAllAsync<DrinkDbItem>();
+        }
         public async Task Save(Drink drink)
         {
             await Init();
@@ -40,7 +46,8 @@ namespace DrinksApp.Data
             }
 
             await Database.InsertAllAsync(ingredients);
-            await Database.InsertAsync(new DrinkDbItem {Id= drink.Id, ThumbnailUrl= drink.ThumbnailUrl, Instructions= drink.Instructions });    
+            await Database.InsertAsync(new DrinkDbItem {Id= drink.Id, ThumbnailUrl= drink.ThumbnailUrl, Instructions= drink.Instructions, AlternateName
+            = drink.AlternateName, Name = drink.Name});    
         }
         public async Task<List<Drink>> GetAllDrinks()
         {

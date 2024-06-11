@@ -6,37 +6,37 @@
              xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              Title="Drinks"
+            BackgroundColor="{DynamicResource Secondary}"
              x:DataType="viewmodel:LibraryViewModel">
 
     <StackLayout>
         <!-- Search Bar -->
-        <!--<StackLayout Padding="5">
-            <Entry Placeholder="Search..." Text="{Binding SearchText, Mode=TwoWay}"/>
-            <Button Text="Search" Command="{Binding ShearchCommand}"/>
-        </StackLayout>-->
+        <StackLayout Padding="5">
+            <Button Text="Delete all" Command="{Binding DeleteAllCommand}" BackgroundColor="red"/>
+        </StackLayout>
 
         <!-- CollectionView -->
         <RefreshView IsRefreshing="{Binding IsRefreshing}">
             <CollectionView ItemsSource="{Binding SavedDrinks}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Drink">
-                        <Grid Padding="10" HorizontalOptions="Fill">
+                        <Grid Padding="5" HorizontalOptions="Fill">
                             <Frame HeightRequest="125" Style="{StaticResource CardView}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}, Path=GoToDrinkDetailsCommand}"
-                    CommandParameter="{Binding .}"/>
+                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}, Path=GoToDrinkDetailsCommand}"
+                                         CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
                                 <Grid Padding="0" ColumnDefinitions="125,*">
                                     <Image
-                    Aspect="AspectFill"
-                    HeightRequest="125"
-                    Source="{Binding ThumbnailUrl}"
-                    WidthRequest="125" />
+                                         Aspect="AspectFill"
+                                         HeightRequest="125"
+                                         Source="{Binding ThumbnailUrl}"
+                                         WidthRequest="125" />
                                     <VerticalStackLayout
-                    VerticalOptions="Center"
-                    Grid.Column="1"
-                    Padding="10">
+                                         VerticalOptions="Center"
+                                         Grid.Column="1"
+                                         Padding="10">
                                         <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
                                         <Label Style="{StaticResource MediumLabel}" Text="{Binding AlternateName}" />
                                     </VerticalStackLayout>

@@ -6,6 +6,7 @@
     xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
     xmlns:model="clr-namespace:DrinksApp.Model"
     Title="{Binding Drink.Name}"
+    BackgroundColor="{DynamicResource Secondary}"
     x:DataType="viewmodel:DrinkDetailsViewModel">
 
 

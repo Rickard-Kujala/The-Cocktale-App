@@ -9,6 +9,26 @@
                 <ResourceDictionary Source="Resources/Styles/Colors.xaml" />
                 <ResourceDictionary Source="Resources/Styles/Styles.xaml" />
             </ResourceDictionary.MergedDictionaries>
+            
+            <!--<Color x:Key="PrimaryColor">#3498db</Color>
+            <Color x:Key="SecondaryColor">#2ecc71</Color>
+            <Color x:Key="AccentColor">#e74c3c</Color>
+
+            --><!-- Define styles --><!--
+            <Style TargetType="Label">
+                <Setter Property="TextColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="FontSize" Value="18" />
+            </Style>
+            <Style TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource PrimaryColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="CornerRadius" Value="8" />
+                <Setter Property="Padding" Value="10,5" />
+            </Style>
+            <Style TargetType="">
+                
+            </Style>-->
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

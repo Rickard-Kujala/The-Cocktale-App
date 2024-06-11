@@ -6,12 +6,13 @@
     xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     Title="Drinks"
+    BackgroundColor="{DynamicResource Secondary}"
     x:DataType="viewmodel:DrinksViewModel">
 
     <StackLayout>
         <!-- Search Bar -->
         <StackLayout Padding="5">
-            <Entry Placeholder="Search..." Text="{Binding SearchText, Mode=TwoWay}"/>
+            <Entry Placeholder="Search..." Text="{Binding SearchText, Mode=TwoWay}" TextColor="White"/>
             <Button Text="Search" Command="{Binding ShearchCommand}"/>
         </StackLayout>
 
@@ -48,7 +49,6 @@
             </CollectionView>
         </RefreshView>
 
-        <!-- Buttons and Activity Indicator -->
         <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
             <Button Command="{Binding GetDrinksCommand}" IsEnabled="{Binding IsNotBusy}" Text="Get drink tip!" Margin="8" Style="{StaticResource ButtonOutline}"/>
             <Button Command="{Binding GoToLibraryCommand}" IsEnabled="{Binding IsNotBusy}" Text="See my drinks!" Margin="8" Style="{StaticResource ButtonOutline}"/>

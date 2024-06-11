@@ -26,6 +26,18 @@ namespace DrinksApp.ViewModel
             _database = database;
             GetAllDrinks();
         }
+        [RelayCommand]
+        async Task DeleteAllAsync()
+        {
+            try
+            {
+                await _database.DeleteAll();
+            }
+            catch (Exception e)
+            {
+                await Shell.Current.DisplayAlert("oops...something happened!", e.Message, "OK");
+            }
+        }
         public async void GetAllDrinks()
         {
             try
