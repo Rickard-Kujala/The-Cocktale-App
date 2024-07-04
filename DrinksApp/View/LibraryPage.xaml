@@ -6,49 +6,62 @@
              xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
              xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
              Title="Drinks"
-            BackgroundColor="{DynamicResource Secondary}"
+             BackgroundColor="{StaticResource CocktailDark}"
              x:DataType="viewmodel:LibraryViewModel">
-
+ 
     <StackLayout>
         <!-- Search Bar -->
         <StackLayout Padding="5">
-            <Button Text="Delete all" Command="{Binding DeleteAllCommand}" BackgroundColor="red"/>
+            <Button Text="Delete all" Command="{Binding DeleteAllCommand}" BackgroundColor="{StaticResource CocktailRed}"/>
         </StackLayout>
 
         <!-- CollectionView -->
-        <RefreshView IsRefreshing="{Binding IsRefreshing}">
+        <RefreshView IsRefreshing="{Binding IsRefreshing}" Command="{Binding RefreshCommand}">
             <CollectionView ItemsSource="{Binding SavedDrinks}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Drink">
-                        <Grid Padding="5" HorizontalOptions="Fill">
-                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
-                                <Frame.GestureRecognizers>
-                                    <TapGestureRecognizer 
-                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}, Path=GoToDrinkDetailsCommand}"
-                                         CommandParameter="{Binding .}"/>
-                                </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="125,*">
-                                    <Image
-                                         Aspect="AspectFill"
-                                         HeightRequest="125"
-                                         Source="{Binding ThumbnailUrl}"
-                                         WidthRequest="125" />
-                                    <VerticalStackLayout
-                                         VerticalOptions="Center"
-                                         Grid.Column="1"
-                                         Padding="10">
-                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding AlternateName}" />
-                                    </VerticalStackLayout>
-                                </Grid>
-                            </Frame>
-                        </Grid>
+                        <SwipeView>
+                            <SwipeView.RightItems>
+                                <SwipeItems>
+                                    <SwipeItem
+                                Text="Delete"
+                                IconImageSource="delete_icon.png"
+                                BackgroundColor="{StaticResource CocktailRed}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}, Path=DeleteDrinkCommand}"
+                                CommandParameter="{Binding .}" />
+                                </SwipeItems>
+                            </SwipeView.RightItems>
+                            <Grid Padding="5" HorizontalOptions="Fill">
+                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                    <Frame.GestureRecognizers>
+                                        <TapGestureRecognizer 
+                                    Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}, Path=GoToDrinkDetailsCommand}"
+                                    CommandParameter="{Binding .}"/>
+                                    </Frame.GestureRecognizers>
+                                    <Grid Padding="0" ColumnDefinitions="125,*" >
+                                        <Image
+                                            Grid.Column="0"
+                                            Aspect="AspectFill"
+                                            HeightRequest="125"
+                                            Source="{Binding ThumbnailUrl}"
+                                            WidthRequest="125" />
+                                        <StackLayout
+                                            Grid.Column="1"
+                                            Padding="10"
+                                            VerticalOptions="Center">
+                                            <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
+                                            <Label LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
+                                            <!--<Label Text="..." TextColor="Gray" VerticalOptions="End" HorizontalOptions="End"  />-->
+                                        </StackLayout>
+                                    </Grid>
+                                </Frame>
+                            </Grid>
+                        </SwipeView>
                     </DataTemplate>
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
 
-       
     </StackLayout>
 
 

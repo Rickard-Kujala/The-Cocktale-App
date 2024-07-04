@@ -5,6 +5,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
 
     <Color x:Key="Primary">Black</Color>
+    <Color x:Key="CocktailRed">#FE1A05</Color>
+    <Color x:Key="CocktailGrey">#908D8B</Color>
+    <Color x:Key="CocktailGreen">#8FAC02</Color>
+    <Color x:Key="CocktailDark">#353235</Color>
     <Color x:Key="Secondary">#807e7a</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
     <Color x:Key="CustomGreen">#567554</Color>

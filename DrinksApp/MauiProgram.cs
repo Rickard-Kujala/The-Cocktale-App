@@ -33,8 +33,8 @@ namespace DrinksApp
             builder.Services.AddSingleton<DrinkDetailsViewModel>();
             builder.Services.AddSingleton<DetailsPage>();
             builder.Services.AddSingleton<LibraryPage>();
-            builder.Services.AddSingleton<LibraryViewModel>();
-            builder.Services.AddSingleton<DrinksDatabase>();
+            builder.Services.AddScoped<LibraryViewModel>();
+            builder.Services.AddSingleton<IDrinksRepository, DrinksRepository>();
             builder.Services.AddScoped<IDrinkMapper, DrinkMapper>();
 
             return builder.Build();

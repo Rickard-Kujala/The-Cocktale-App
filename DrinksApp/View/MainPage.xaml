@@ -6,14 +6,14 @@
     xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
     Title="Drinks"
-    BackgroundColor="{DynamicResource Secondary}"
+    BackgroundColor="{StaticResource CocktailDark}"
     x:DataType="viewmodel:DrinksViewModel">
 
     <StackLayout>
         <!-- Search Bar -->
         <StackLayout Padding="5">
-            <Entry Placeholder="Search..." Text="{Binding SearchText, Mode=TwoWay}" TextColor="White"/>
-            <Button Text="Search" Command="{Binding ShearchCommand}"/>
+            <Entry Margin="5" BackgroundColor="White" TextColor="black" Placeholder="Search..." Text="{Binding SearchText, Mode=TwoWay}"/>
+            <Button BackgroundColor="{StaticResource CocktailGreen}" Margin="5" Text="Search" Command="{Binding ShearchCommand}"/>
         </StackLayout>
 
         <!-- CollectionView -->
@@ -21,26 +21,27 @@
             <CollectionView ItemsSource="{Binding Drinks}" SelectionMode="None">
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Drink">
-                        <Grid Padding="10" HorizontalOptions="Fill">
+                        <Grid Padding="5" HorizontalOptions="Fill">
                             <Frame HeightRequest="125" Style="{StaticResource CardView}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DrinksViewModel}}, Path=GoToDrinkDetailsCommand}"
-                        CommandParameter="{Binding .}"/>
+                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DrinksViewModel}}, Path=GoToDrinkDetailsCommand}"
+                                         CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="125,*">
+                                <Grid Padding="0" ColumnDefinitions="125,*" >
                                     <Image
-                        Aspect="AspectFill"
-                        HeightRequest="125"
-                        Source="{Binding ThumbnailUrl}"
-                        WidthRequest="125" />
-                                    <VerticalStackLayout
-                        VerticalOptions="Center"
-                        Grid.Column="1"
-                        Padding="10">
-                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}" />
-                                        <Label Style="{StaticResource MediumLabel}" Text="{Binding AlternateName}" />
-                                    </VerticalStackLayout>
+                                         Grid.Column="0"
+                                         Aspect="AspectFill"
+                                         HeightRequest="125"
+                                         Source="{Binding ThumbnailUrl}"
+                                         WidthRequest="125" />
+                                    <StackLayout
+                                         Grid.Column="1"
+                                         Padding="10"
+                                         VerticalOptions="Center">
+                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
+                                    </StackLayout>
                                 </Grid>
                             </Frame>
                         </Grid>
@@ -49,12 +50,12 @@
             </CollectionView>
         </RefreshView>
 
-        <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button Command="{Binding GetDrinksCommand}" IsEnabled="{Binding IsNotBusy}" Text="Get drink tip!" Margin="8" Style="{StaticResource ButtonOutline}"/>
-            <Button Command="{Binding GoToLibraryCommand}" IsEnabled="{Binding IsNotBusy}" Text="See my drinks!" Margin="8" Style="{StaticResource ButtonOutline}"/>
+        <StackLayout Padding="10" VerticalOptions="End"  Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
+            <Button BackgroundColor="{StaticResource CocktailGrey}" Command="{Binding GetDrinksCommand}" IsEnabled="{Binding IsNotBusy}" Text="Get drink tip!" Margin="10" Style="{StaticResource ButtonOutline}"/>
+            <Button BackgroundColor="{StaticResource CocktailGrey}" Command="{Binding GoToLibraryCommand}" IsEnabled="{Binding IsNotBusy}" Text="See my drinks!" Margin="10" Style="{StaticResource ButtonOutline}"/>
         </StackLayout>
 
-        <ActivityIndicator IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Primary}" VerticalOptions="Center" HorizontalOptions="Center"/>
+        <ActivityIndicator  IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Primary}" VerticalOptions="Center" HorizontalOptions="Center"/>
     </StackLayout>
 
 </ContentPage>

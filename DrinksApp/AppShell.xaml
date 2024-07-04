@@ -9,20 +9,14 @@
     Shell.FlyoutBehavior="Flyout">
     <Shell.FlyoutHeader>
         <Grid>
-            <!-- Set the Background Image -->
-            <Image Source="background.png" Aspect="AspectFill"/>
-
+            <Image Source="cocktail.png" Aspect="AspectFill" HeightRequest="400"/>
             <!-- Optional: Overlay content on the Image -->
             <StackLayout Orientation="Vertical" VerticalOptions="End" Padding="10">
-                <Label Text="Your App Name" TextColor="White" FontSize="24"/>
-                <Label Text="Welcome!" TextColor="White" FontSize="14"/>
+                <Label TextColor="#FE1A05" Text="Get dru(i)nk(s)"  FontSize="24"/>
+                <Label TextColor="#908D8B" Text="With the Cocktail app!" FontSize="14"/>
             </StackLayout>
         </Grid>
     </Shell.FlyoutHeader>
-    <!--<ShellContent
-        Title="Home"
-        ContentTemplate="{DataTemplate view:MainPage}"
-        Route="MainPage" />-->
     <FlyoutItem Title="Home" Icon="home.png">
         <ShellContent ContentTemplate="{DataTemplate view:MainPage}" />
     </FlyoutItem>

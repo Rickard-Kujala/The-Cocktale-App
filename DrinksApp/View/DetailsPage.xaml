@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage
     x:Class="DrinksApp.View.DetailsPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
@@ -6,61 +5,103 @@
     xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
     xmlns:model="clr-namespace:DrinksApp.Model"
     Title="{Binding Drink.Name}"
-    BackgroundColor="{DynamicResource Secondary}"
+    BackgroundColor="{StaticResource CocktailDark}"
     x:DataType="viewmodel:DrinkDetailsViewModel">
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-    <StackLayout>
-        <StackLayout>
+        <ScrollView Grid.Row="0">
+            <!-- Content section -->
+            <StackLayout BackgroundColor="White">
+                <StackLayout>
+                    <!-- Background box and image -->
+                    <BoxView
+                        BackgroundColor="{StaticResource CocktailDark}"
+                        HorizontalOptions="Fill"
+                        VerticalOptions="Fill"/>
 
-            <BoxView
-    BackgroundColor="{StaticResource Primary}"
-    Grid.RowSpan="4"
-    HorizontalOptions="Fill"
-    VerticalOptions="Fill"/>
+                    <Border StrokeShape="RoundRectangle 80"
+                        Stroke="White"
+                        StrokeThickness="6"
+                        HeightRequest="160"
+                        WidthRequest="160"
+                        Margin="0,8,0,0"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Image Aspect="AspectFill"
+                            HeightRequest="160"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center"
+                            Source="{Binding Drink.ThumbnailUrl}"
+                            WidthRequest="160"/>
+                    </Border>
+                </StackLayout>
+                <StackLayout Padding="10">
+                    
+                    <Label Margin="10" Text="{Binding Drink.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" />
+                    <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+                    
+                   <!--Instructions Section-->
+                    <Grid Padding="10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        
+                        <Label Text="Instructions" FontSize="Subtitle" VerticalOptions="Center" />
+                        <Button BackgroundColor="{StaticResource CocktailGrey}" FontSize="Large" Text="{Binding ToggleInstructionsBtnText}" Command="{Binding ToggleInstructionsCommand}" Grid.Column="1" VerticalOptions="Center" />
+                        
+                    </Grid>
+                    <Label Text="{Binding Drink.Instructions}" Padding="10" IsVisible="{Binding ShowInstructions}" />
 
-            <Border StrokeShape="RoundRectangle 80"
-        Stroke="White"
-        StrokeThickness="6"
-        HeightRequest="160"
-        WidthRequest="160"
-        Margin="0,8,0,0"
-        HorizontalOptions="Center"
-        VerticalOptions="Center">
-                <Image Aspect="AspectFill"
-            HeightRequest="160"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            Source="{Binding Drink.ThumbnailUrl}"
-            WidthRequest="160"/>
-            </Border>
-        </StackLayout>
-        <StackLayout Padding="10">
-            <Label Text="{Binding Drink.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding Drink.Category}" FontSize="Subtitle" HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding Drink.Instructions}" HorizontalOptions="CenterAndExpand" />
+                    <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
 
-            <Label Text="Ingredients:" FontSize="Subtitle" HorizontalOptions="CenterAndExpand" />
-            <CollectionView ItemsSource="{Binding Drink.Ingredients}" SelectionMode="None">
-                <CollectionView.ItemTemplate>
-                    <DataTemplate x:DataType="model:Ingredient">
-                        <StackLayout Padding="10" HorizontalOptions="CenterAndExpand">
-                            <Label Text="{Binding Name}" />
-                            <Label Text="{Binding Measure}" />
-                        </StackLayout>
-                    </DataTemplate>
-                </CollectionView.ItemTemplate>
-            </CollectionView>
-        </StackLayout>
+                    <!-- Ingredients Section -->
+                    <Grid Padding="10">
+                        
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
 
-        <VerticalStackLayout Grid.Row="8" Padding="10" Spacing="10">
-            <Button Text="Add to library!" 
+                        <Label Text="Ingredients" FontSize="Subtitle" VerticalOptions="Center" />
+                        <Button BackgroundColor="{StaticResource CocktailGrey}" FontSize="Large" Text="{Binding ToggleIngredientsBtnText}" Command="{Binding ToggleIngredientsCommand}" Grid.Column="1" VerticalOptions="Center" />
+                    </Grid>
+
+                    <CollectionView ItemsSource="{Binding Drink.Ingredients}" SelectionMode="None" IsVisible="{Binding ShowIngredients}">
+                        <CollectionView.ItemsLayout>
+                            <GridItemsLayout Orientation="Vertical" Span="1" />
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate x:DataType="model:Ingredient">
+                                <StackLayout  Padding="10">
+                                    <Label HorizontalOptions="CenterAndExpand">
+                                        <Label.Text>
+                                            <MultiBinding StringFormat="{}{0} {1}">
+                                                <Binding Path="Name" />
+                                                <Binding Path="Measure" />
+                                            </MultiBinding>
+                                        </Label.Text>
+                                    </Label>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                    <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+
+        <StackLayout HeightRequest="50" Padding="10" Grid.Row="1">
+            <Button BackgroundColor="{StaticResource CocktailGreen}" Text="Add to library!" 
                 Command="{Binding SaveCommand}"
                 HorizontalOptions="Center" 
                 WidthRequest="200" 
-                Margin="8"
-                Style="{StaticResource ButtonOutline}"/>
-
-        </VerticalStackLayout>
-    </StackLayout>
+                Style="{StaticResource ButtonOutline}" />
+        </StackLayout>
+    </Grid>
 </ContentPage>

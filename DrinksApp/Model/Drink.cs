@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SQLite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -28,6 +29,7 @@ namespace DrinksApp.Model
     }
     public class DrinkDbItem
     {
+        [PrimaryKey]
         public string Id { get; set; }
         public string Name { get; set; }
         public string AlternateName { get; set; }

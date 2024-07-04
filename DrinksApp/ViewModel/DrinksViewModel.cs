@@ -36,7 +36,7 @@ namespace DrinksApp.ViewModel
              });
         }
         [RelayCommand]
-        async Task GoToLibrary(Drink drink)
+        async Task GoToLibrary()
         {
             await Shell.Current.GoToAsync(nameof(LibraryPage), true);
         }
