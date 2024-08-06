@@ -13,7 +13,19 @@
         <!-- Search Bar -->
         <StackLayout Padding="5">
             <Entry Margin="5" BackgroundColor="White" TextColor="black" Placeholder="Search..." Text="{Binding SearchText, Mode=TwoWay}"/>
-            <Button BackgroundColor="{StaticResource CocktailGreen}" Margin="5" Text="Search" Command="{Binding ShearchCommand}"/>
+            <Grid Padding="5" ColumnDefinitions="Auto, *" VerticalOptions="Center">
+                <CheckBox Grid.Column="0"
+                          x:Name="AlcoholicCheckBox" 
+                          Color="White"
+                          IsChecked="{Binding IsAlcoholicFilterEnabled}"
+                          CheckedChanged="OnAlcoholicFilterChanged" />
+                <Label Grid.Column="1"
+                       TextColor="White"
+                       Text="Show only alcoholic drinks" 
+                       VerticalOptions="Center" 
+                       Margin="5,0,0,0"/>
+            </Grid>
+            <Button BackgroundColor="{StaticResource CocktailGreen}" Margin="5" Text="Search" Command="{Binding SearchCommand}"/>
         </StackLayout>
 
         <!-- CollectionView -->
