@@ -11,11 +11,14 @@ public partial class DetailsPage : ContentPage
 		InitializeComponent();
         BindingContext = viewModel;
     }
-    protected override void OnAppearing()
+    protected async override void OnAppearing()
     {
         _viewModel.ShowIngredients = true;
         _viewModel.ShowInstructions= true;
+        _viewModel.ShowNotes = true;
         _viewModel.ToggleInstructionsBtnText = "˄";
         _viewModel.ToggleIngredientsBtnText = "˄";
+        _viewModel.ToggleNotesBtnText = "˄";
+        await _viewModel.Refresh();
     }
 }

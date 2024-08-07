@@ -92,6 +92,46 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                     <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+
+                    <!-- Editor for Notes -->
+                    <Editor x:Name="TextInputArea"
+                IsVisible="{Binding ShowNotes}"
+                Placeholder="{Binding Drink.Notes}"
+                TextColor="Black"
+                BackgroundColor="White"
+                HeightRequest="150"
+                Margin="0,10,0,0"
+                VerticalOptions="Start"
+                Text="{Binding Notes, Mode=TwoWay}" />
+
+                    <!-- Capture Image Button -->
+                    <Button Text="Capture Photo"
+                BackgroundColor="{StaticResource CocktailGreen}"
+                Command="{Binding CapturePhotoCommand}"
+                IsVisible="{Binding ShowNotes}"
+                Margin="0,10,0,0"
+                VerticalOptions="Start" />
+
+                    <!-- Display Captured Image -->
+                    <Image Source="{Binding CapturedImagePath}"
+               HeightRequest="200"
+               IsVisible="{Binding ShowNotes}"
+               Margin="0,10,0,0"
+               VerticalOptions="Start" />
+
+                    <!-- Save Button -->
+                    <Button Text="Save"
+                BackgroundColor="{StaticResource CocktailGreen}"
+                Command="{Binding SaveNotesCommand}"
+                IsVisible="{Binding ShowNotes}"
+                Margin="0,10,0,0"
+                VerticalOptions="Start" />
+
+                    <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+
+
+                    <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+
                 </StackLayout>
             </StackLayout>
         </ScrollView>

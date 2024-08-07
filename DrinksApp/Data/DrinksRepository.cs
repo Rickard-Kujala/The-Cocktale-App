@@ -77,5 +77,18 @@ namespace DrinksApp.Data
             var drinksFromDb = await _database.Table<DrinkDbItem>().ToListAsync();
             return _drinkMapper.MapToDbDrinkItem(drinksFromDb, ingredients);
         }
+        public async void Update(Drink drink)
+        {
+            await Init();
+            var drinkToUpdate = await  _database.Table<DrinkDbItem>().FirstOrDefaultAsync(d => d.Id == drink.Id);
+            drinkToUpdate.Notes = drink.Notes;
+            await _database.UpdateAsync(drinkToUpdate);
+        }
+        public async Task<Drink> GetWithId(string id)
+        {
+            await Init();
+            var drinks = await GetAllDrinks();
+            return drinks.FirstOrDefault(d => d.Id == id);
+        }
     }
 }

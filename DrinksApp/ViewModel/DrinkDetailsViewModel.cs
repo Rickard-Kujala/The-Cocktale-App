@@ -1,11 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using DrinksApp.Model;
 using MonkeyFinder.ViewModel;
-using Newtonsoft.Json;
-using SQLite;
-
 using CommunityToolkit.Mvvm.Input;
-using System.Collections.ObjectModel;
 using DrinksApp.Data;
 
 namespace DrinksApp.ViewModel
@@ -19,8 +15,10 @@ namespace DrinksApp.ViewModel
             _repo = repo;
         }
         public bool IsRefreshing { get; set; }
+
         [ObservableProperty]
         Drink drink;
+
         private readonly IDrinksRepository _repo;
 
         [RelayCommand]
@@ -34,9 +32,12 @@ namespace DrinksApp.ViewModel
             catch (Exception e)
             {
                 await Shell.Current.DisplayAlert("oops...something happened!", e.Message, "OK");
-                //Some sort of logging
             }
         }
+
+        [ObservableProperty]
+        private bool showNotes;
+
         [ObservableProperty]
         private bool showInstructions;
 
@@ -49,12 +50,20 @@ namespace DrinksApp.ViewModel
         [ObservableProperty]
         private string toggleIngredientsBtnText;
 
+        [ObservableProperty]
+        private string toggleNotesBtnText;
+
         //public DrinkDetailsViewModel()
         //{
         //    ShowInstructions = true;
         //    ShowIngredients = true;
         //}
-
+        [RelayCommand]
+        private void ToggleNotes()
+        {
+            ShowNotes = !ShowNotes;
+            ToggleNotesBtnText = ShowNotes ? "˄" : "˅";
+        }
         [RelayCommand]
         private void ToggleInstructions()
         {
@@ -68,6 +77,63 @@ namespace DrinksApp.ViewModel
         {
             ShowIngredients = !ShowIngredients;
             ToggleIngredientsBtnText = ShowIngredients ? "˄" : "˅";
+        }
+        [RelayCommand]
+        private async Task SaveNotes()
+        {
+            try
+            {
+                Drink.Notes = Notes;
+                _repo.Update(Drink);
+                await Shell.Current.DisplayAlert("Success", "Saved changes", "OK");
+            }
+            catch (Exception e)
+            {
+                await Shell.Current.DisplayAlert("Error updating notes", e.Message, "OK");
+            }
+        }
+        private string _notes;
+
+        public string Notes
+        {
+            get => _notes;
+            set
+            {
+                if (_notes != value)
+                {
+                    _notes = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+        [RelayCommand]
+        private async Task CapturePhotoAsync()
+        {
+            try
+            {
+                var photo = await MediaPicker.CapturePhotoAsync();
+                if (photo != null)
+                {
+                    var stream = await photo.OpenReadAsync();
+                    // Here, you can save the stream to a file or perform other actions
+                    CapturedImagePath = photo.FullPath;
+                    Console.WriteLine($"Photo captured: {CapturedImagePath}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Capture photo error: {ex.Message}");
+            }
+        }
+        private string _capturedImagePath;
+        public string CapturedImagePath
+        {
+            get => _capturedImagePath;
+            set => SetProperty(ref _capturedImagePath, value);
+        }
+        public async Task Refresh()
+        {
+            Drink = await _repo.GetWithId(Drink.Id);
         }
     }
 }

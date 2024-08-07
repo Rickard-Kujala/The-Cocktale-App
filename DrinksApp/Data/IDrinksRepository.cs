@@ -7,6 +7,8 @@ namespace DrinksApp.Data
         Task Delete(Drink drink);
         Task DeleteAll();
         Task<List<Drink>> GetAllDrinks();
+        Task<Drink> GetWithId(string id);
         Task Save(Drink drink);
+        void Update(Drink drink);
     }
 }

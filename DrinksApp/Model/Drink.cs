@@ -26,6 +26,7 @@ namespace DrinksApp.Model
         public string ImageAttribution { get; set; }
         public string CreativeCommonsConfirmed { get; set; }
         public DateTime DateModified { get; set; }
+        public string Notes { get; set; } = string.Empty;
     }
     public class DrinkDbItem
     {
@@ -45,6 +46,7 @@ namespace DrinksApp.Model
         public string ImageAttribution { get; set; }
         public string CreativeCommonsConfirmed { get; set; }
         public DateTime DateModified { get; set; }
+        public string Notes { get; set; } = string.Empty ;
     }
 
 }
