@@ -9,7 +9,7 @@ namespace DrinksApp
     public static class Constants
     {
         public const string DatabaseFilename = "DrinksSQLite.db3";
-
+        public const string Alcoholic = "Alcoholic";
         public const SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode
             SQLite.SQLiteOpenFlags.ReadWrite |

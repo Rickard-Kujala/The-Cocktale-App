@@ -18,6 +18,13 @@ namespace DrinksApp.View
                 _viewModel.IsAlcoholicFilterEnabled = e.Value;
             }
         }
+        private void OnNonAlcoholicFilterChanged(object sender, CheckedChangedEventArgs e)
+        {
+            if (_viewModel != null)
+            {
+                _viewModel.IsNonAlcoholicFilterEnabled = e.Value;
+            }
+        }
     }
 
 }
