@@ -18,7 +18,16 @@ namespace DrinksApp.ViewModel
 
         public ObservableCollection<Drink> Drinks { get; } = new();
         public Drink DrinkOfTheDay { get; set; }
-        public bool IsRefreshing { get; set; }
+        public bool IsRefreshing
+        {
+            get => _isRefreshing;
+            set
+            {
+                _isRefreshing = value;
+                OnPropertyChanged();
+            } 
+        }
+
         public string SearchText
         {
             get => _searchText;
@@ -28,7 +37,6 @@ namespace DrinksApp.ViewModel
                 {
                     _searchText = value;
                     OnPropertyChanged();
-                    FilterDrinks(); // Filter as the text changes
                 }
             }
         }
@@ -41,11 +49,16 @@ namespace DrinksApp.ViewModel
                 if (_isAlcoholicFilterEnabled != value)
                 {
                     _isAlcoholicFilterEnabled = value;
+                    if (_isAlcoholicFilterEnabled)
+                    {
+                        IsNonAlcoholicFilterEnabled = false; // Ensure the other filter is not enabled
+                    }
                     OnPropertyChanged();
-                    FilterDrinks(); 
+                    FilterDrinks();
                 }
             }
         }
+
         public bool IsNonAlcoholicFilterEnabled
         {
             get => _isNonAlcoholicFilterEnabled;
@@ -54,11 +67,16 @@ namespace DrinksApp.ViewModel
                 if (_isNonAlcoholicFilterEnabled != value)
                 {
                     _isNonAlcoholicFilterEnabled = value;
+                    if (_isNonAlcoholicFilterEnabled)
+                    {
+                        IsAlcoholicFilterEnabled = false; // Ensure the other filter is not enabled
+                    }
                     OnPropertyChanged();
-                    FilterDrinks(); 
+                    FilterDrinks();
                 }
             }
         }
+
         #endregion
 
         #region Private variables
@@ -67,6 +85,7 @@ namespace DrinksApp.ViewModel
         private string _searchText;
         private ObservableCollection<Drink> _allDrinks; // To keep the original list
         private bool _isNonAlcoholicFilterEnabled;
+        private bool _isRefreshing;
 
         #endregion
 
@@ -77,7 +96,23 @@ namespace DrinksApp.ViewModel
         #endregion
 
         #region Public methods
-
+        [RelayCommand]
+        public async Task RefreshAsync()
+        {
+            IsRefreshing = true;
+            try
+            {
+                await Task.Delay(1000);
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("apa");
+            }
+            finally
+            {
+                IsRefreshing = false;
+            }
+        }
         public DrinksViewModel(IDrinkService drinkService)
         {
             _drinkService = drinkService;
@@ -92,9 +127,9 @@ namespace DrinksApp.ViewModel
                 return;
 
             await Shell.Current.GoToAsync(nameof(DetailsPage), true, new Dictionary<string, object>
-            {
-                {"Drink", drink }
-            });
+        {
+            {"Drink", drink }
+        });
         }
 
         [RelayCommand]
@@ -161,41 +196,32 @@ namespace DrinksApp.ViewModel
                 IsRefreshing = false;
             }
         }
+
         #endregion
 
         #region Private methods
 
-
         private void FilterDrinks()
         {
-            //var filtered = _allDrinks.Where(d =>
-            //    (string.IsNullOrWhiteSpace(SearchText) || d.Name.Contains(SearchText, StringComparison.OrdinalIgnoreCase)) &&
-            //    (!IsAlcoholicFilterEnabled || d.Alcoholic == "Alcoholic")).ToList();
-
             var filtered = new List<Drink>();
 
             if (IsAlcoholicFilterEnabled)
             {
                 filtered = FilterAlcoholicDrinks();
-                PopulateDrinksList(filtered);
-
             }
             else if (IsNonAlcoholicFilterEnabled)
             {
                 filtered = FilterNonAlcoholicDrinks();
-                PopulateDrinksList(filtered);
             }
             else
             {
-                Drinks.Clear();
-                foreach (var drink in _allDrinks)
-                {
-                    Drinks.Add(drink);
-                }
+                filtered = _allDrinks.ToList();
             }
+
+            PopulateDrinksList(filtered);
         }
 
-        private void PopulateDrinksList(List<Drink> drinks )
+        private void PopulateDrinksList(List<Drink> drinks)
         {
             Drinks.Clear();
             foreach (var drink in drinks)
@@ -206,18 +232,12 @@ namespace DrinksApp.ViewModel
 
         private List<Drink> FilterNonAlcoholicDrinks()
         {
-            List<Drink> filtered = _allDrinks.Where(d =>
-                d.Alcoholic != Constants.Alcoholic).ToList();
-            IsAlcoholicFilterEnabled = false;
-            return filtered;
+            return _allDrinks.Where(d => d.Alcoholic != Constants.Alcoholic).ToList();
         }
 
         private List<Drink> FilterAlcoholicDrinks()
         {
-            List<Drink> filtered = _allDrinks.Where(d =>
-                                d.Alcoholic == Constants.Alcoholic).ToList();
-            IsNonAlcoholicFilterEnabled = false;
-            return filtered;
+            return _allDrinks.Where(d => d.Alcoholic == Constants.Alcoholic).ToList();
         }
 
         #endregion
