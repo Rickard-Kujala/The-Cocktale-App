@@ -26,7 +26,8 @@ namespace DrinksApp.ViewModel
         {
             try
             {
-                await _repo.Save(Drink); 
+                await _repo.Save(Drink);
+                await Refresh();
                 await Shell.Current.DisplayAlert("Success", "Drink Added successfully to library!", "OK");
             }
             catch (Exception e)
@@ -36,7 +37,13 @@ namespace DrinksApp.ViewModel
         }
 
         [ObservableProperty]
+        private bool showNotesSection;
+
+        [ObservableProperty]
         private bool showNotes;
+
+        [ObservableProperty]
+        private bool showImage;
 
         [ObservableProperty]
         private bool showInstructions;
@@ -52,6 +59,15 @@ namespace DrinksApp.ViewModel
 
         [ObservableProperty]
         private string toggleNotesBtnText;
+
+        [ObservableProperty]
+        private bool showSaveToLibraryBtn;
+
+        [ObservableProperty]
+        private string photoPath;
+
+        //[ObservableProperty]
+        //private string notes;
 
         //public DrinkDetailsViewModel()
         //{
@@ -71,6 +87,14 @@ namespace DrinksApp.ViewModel
             ToggleInstructionsBtnText = ShowInstructions ? "˄" : "˅";
         }
 
+        [RelayCommand]
+        private async Task DeletePhoto()
+        {
+            await _repo.DeletePhoto(Drink.Id);
+            ShowImage = false;
+            OnPropertyChanged(nameof(ShowImage));
+            await Refresh();
+        }
 
         [RelayCommand]
         private void ToggleIngredients()
@@ -84,7 +108,10 @@ namespace DrinksApp.ViewModel
             try
             {
                 Drink.Notes = Notes;
+
+                Drink.PhotoPath = PhotoPath;    
                 _repo.Update(Drink);
+                await Refresh();
                 await Shell.Current.DisplayAlert("Success", "Saved changes", "OK");
             }
             catch (Exception e)
@@ -112,28 +139,71 @@ namespace DrinksApp.ViewModel
             try
             {
                 var photo = await MediaPicker.CapturePhotoAsync();
+
                 if (photo != null)
                 {
-                    var stream = await photo.OpenReadAsync();
-                    // Here, you can save the stream to a file or perform other actions
-                    CapturedImagePath = photo.FullPath;
-                    Console.WriteLine($"Photo captured: {CapturedImagePath}");
+                    // Save the photo to the device's local storage
+                    var savedPhotoPath = await SavePhotoToFileAsync(photo);
+                    PhotoPath = savedPhotoPath;
+                    OnPropertyChanged(nameof(PhotoPath));
+                    ShowImage = true;
+                    // Save the photo path to the database
+                    //_repo.Update(Drink);
+                    //await Refresh();
                 }
+            }
+            catch (FeatureNotSupportedException fnsEx)
+            {
+                // Handle not supported on device exception
+            }
+            catch (PermissionException pEx)
+            {
+                // Handle permission exception
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Capture photo error: {ex.Message}");
+                // Handle other exceptions
             }
         }
-        private string _capturedImagePath;
-        public string CapturedImagePath
+        private async Task<string> SavePhotoToFileAsync(FileResult photo)
         {
-            get => _capturedImagePath;
-            set => SetProperty(ref _capturedImagePath, value);
+            // Get a writable folder to store the photo
+            var localPath = Path.Combine(FileSystem.AppDataDirectory, photo.FileName);
+
+            using (var stream = await photo.OpenReadAsync())
+            using (var newStream = File.OpenWrite(localPath))
+            {
+                await stream.CopyToAsync(newStream);
+            }
+
+            return localPath;
         }
+        
         public async Task Refresh()
         {
-            Drink = await _repo.GetWithId(Drink.Id);
+            var drinkFromDb = await _repo.GetWithId(Drink.Id);
+
+            if (drinkFromDb is not null)
+            {
+                Drink = drinkFromDb;
+                ShowSaveToLibraryBtn = false;
+                ShowNotesSection = true;
+                PhotoPath = Drink.PhotoPath;
+                Notes = Drink.Notes;
+            }
+            else
+            {
+                ShowSaveToLibraryBtn= true;
+                ShowNotesSection= false; 
+            }
+            if (!string.IsNullOrEmpty(PhotoPath))
+            {
+                ShowImage = true;
+            }
+            else
+            {
+                ShowImage= false;
+            }
         }
     }
 }

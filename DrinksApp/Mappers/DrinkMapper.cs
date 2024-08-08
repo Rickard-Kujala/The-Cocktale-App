@@ -73,8 +73,9 @@ namespace DrinksApp.Mappers
             return drinksFromDb.Select(dbDrink =>
             {
                 var drink = new Drink() { Id = dbDrink.Id, ThumbnailUrl = dbDrink.ThumbnailUrl,
-                    Instructions = dbDrink.Instructions, Name = dbDrink.Name, AlternateName = dbDrink.AlternateName, Notes = dbDrink.Notes };
-                drink.Ingredients.AddRange(ingredients.Where(x => x.Id == drink.Id));
+                    Instructions = dbDrink.Instructions, Name = dbDrink.Name, AlternateName = dbDrink.AlternateName, Notes = dbDrink.Notes, PhotoPath = dbDrink.PhotoPath };
+
+                drink.Ingredients.AddRange(ingredients.Where(x => x.DrinkId == drink.Id));
                 return drink;
             }).ToList();
         }

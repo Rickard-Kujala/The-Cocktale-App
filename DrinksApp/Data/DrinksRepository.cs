@@ -55,7 +55,8 @@ namespace DrinksApp.Data
             var ingredients = new List<Ingredient>();
             foreach (var ingredient in drink.Ingredients)
             {
-                ingredient.Id = drink.Id;
+                ingredient.DrinkId = drink.Id;
+                ingredient.Id = Guid.NewGuid().ToString();
                 ingredients.Add(ingredient);
             }
 
@@ -65,9 +66,10 @@ namespace DrinksApp.Data
                 Id = drink.Id,
                 ThumbnailUrl = drink.ThumbnailUrl,
                 Instructions = drink.Instructions,
-                AlternateName
-                = drink.AlternateName,
-                Name = drink.Name
+                AlternateName = drink.AlternateName,
+                Name = drink.Name,
+                Notes = drink.Notes,
+                PhotoPath = drink.PhotoPath
             });
         }
         public async Task<List<Drink>> GetAllDrinks()
@@ -82,6 +84,10 @@ namespace DrinksApp.Data
             await Init();
             var drinkToUpdate = await  _database.Table<DrinkDbItem>().FirstOrDefaultAsync(d => d.Id == drink.Id);
             drinkToUpdate.Notes = drink.Notes;
+            if (drink.PhotoPath != null)
+            {
+                drinkToUpdate.PhotoPath = drink.PhotoPath; 
+            }
             await _database.UpdateAsync(drinkToUpdate);
         }
         public async Task<Drink> GetWithId(string id)
@@ -89,6 +95,18 @@ namespace DrinksApp.Data
             await Init();
             var drinks = await GetAllDrinks();
             return drinks.FirstOrDefault(d => d.Id == id);
+        }
+
+        public async Task DeletePhoto(string id)
+        {
+            await Init();
+            var drinkToModify = await _database.Table<DrinkDbItem>().FirstOrDefaultAsync(d => d.Id == id);
+            if (drinkToModify != null)
+            {
+                drinkToModify.PhotoPath = string.Empty;
+                await _database.UpdateAsync(drinkToModify);
+            }
+            
         }
     }
 }

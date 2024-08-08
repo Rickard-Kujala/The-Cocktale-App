@@ -13,5 +13,6 @@ namespace DrinksApp.Model
         public string Id { get; set; }
         public string Name { get; set; }
         public string Measure { get; set; }
+        public string DrinkId { get; set; }
     }
 }

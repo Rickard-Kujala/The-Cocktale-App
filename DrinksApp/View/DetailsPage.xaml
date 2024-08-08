@@ -92,52 +92,94 @@
                         </CollectionView.ItemTemplate>
                     </CollectionView>
                     <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+                    
+                    <StackLayout IsVisible="{Binding ShowNotesSection}">
+                        <Grid Padding="10">
 
-                    <!-- Editor for Notes -->
-                    <Editor x:Name="TextInputArea"
-                IsVisible="{Binding ShowNotes}"
-                Placeholder="{Binding Drink.Notes}"
-                TextColor="Black"
-                BackgroundColor="White"
-                HeightRequest="150"
-                Margin="0,10,0,0"
-                VerticalOptions="Start"
-                Text="{Binding Notes, Mode=TwoWay}" />
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
 
-                    <!-- Capture Image Button -->
-                    <Button Text="Capture Photo"
-                BackgroundColor="{StaticResource CocktailGreen}"
-                Command="{Binding CapturePhotoCommand}"
-                IsVisible="{Binding ShowNotes}"
-                Margin="0,10,0,0"
-                VerticalOptions="Start" />
+                            <Label Text="Notes" FontSize="Subtitle" VerticalOptions="Center" />
 
-                    <!-- Display Captured Image -->
-                    <Image Source="{Binding CapturedImagePath}"
-               HeightRequest="200"
-               IsVisible="{Binding ShowNotes}"
-               Margin="0,10,0,0"
-               VerticalOptions="Start" />
+                            <Button BackgroundColor="{StaticResource CocktailGrey}" FontSize="Large" Text="{Binding ToggleNotesBtnText}" Command="{Binding ToggleNotesCommand}" Grid.Column="1" VerticalOptions="Center" />
+                        </Grid>
+                        <StackLayout IsVisible="{Binding ShowNotes}">
 
-                    <!-- Save Button -->
-                    <Button Text="Save"
-                BackgroundColor="{StaticResource CocktailGreen}"
-                Command="{Binding SaveNotesCommand}"
-                IsVisible="{Binding ShowNotes}"
-                Margin="0,10,0,0"
-                VerticalOptions="Start" />
+                            <!-- Editor for Notes -->
+                            <Editor x:Name="TextInputArea"
+                                IsVisible="{Binding ShowNotes}"
+                                Placeholder="{Binding Notes}"
+                                TextColor="Black"
+                                BackgroundColor="White"
+                                HeightRequest="50"
+                                Margin="0,10,0,0"
+                                VerticalOptions="Start"
+                                Text="{Binding Notes, Mode=TwoWay}" />  
 
-                    <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+                            <!-- Image Display and Action Buttons -->
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
 
+                                <!-- Display Captured Image -->
+                                <Image
+                                    Grid.Row="0"
+                                    Source="{Binding PhotoPath}"
+                                    HeightRequest="150"
+                                    IsVisible="{Binding ShowImage}"
+                                    Margin="0,10,0,0"
+                                    VerticalOptions="Start" />  
 
-                    <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+                                <StackLayout 
+                                    Grid.Column="1"
+                                    Margin="0,10,0,0"
+                                    VerticalOptions="Start"
+                                    Spacing="50">       
+
+                                    <!-- Capture Image Button -->
+                                    <ImageButton
+                                        Source="Resources/Images/camera.svg"
+                                        Command="{Binding CapturePhotoCommand}"
+                                        IsVisible="{Binding ShowNotesSection}"
+                                        HeightRequest="50"
+                                        WidthRequest="50" />
+
+                                    <!-- Delete Image Button -->
+                                    <ImageButton
+                                        Source="Resources/Images/trashbin.png"
+                                        Command="{Binding DeletePhotoCommand}"
+                                        IsVisible="{Binding ShowImage}"
+                                        HeightRequest="50"
+                                        WidthRequest="50" />    
+                                </StackLayout>
+                            </Grid>
+
+                            <!-- Save Button -->
+                            <Button Text="Save"
+                                BackgroundColor="{StaticResource CocktailGreen}"
+                                Command="{Binding SaveNotesCommand}"
+                                IsVisible="{Binding ShowNotes}"
+                                Margin="0,10,0,0"
+                                VerticalOptions="Start" />    
+                            
+                        </StackLayout>
+
+                        <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
+                    </StackLayout>
+                        
 
                 </StackLayout>
             </StackLayout>
         </ScrollView>
 
         <StackLayout HeightRequest="50" Padding="10" Grid.Row="1">
-            <Button BackgroundColor="{StaticResource CocktailGreen}" Text="Add to library!" 
+            <Button
+                BackgroundColor="{StaticResource CocktailGreen}" Text="Add to library!" 
+                IsVisible="{Binding ShowSaveToLibraryBtn}"
                 Command="{Binding SaveCommand}"
                 HorizontalOptions="Center" 
                 WidthRequest="200" 

@@ -45,6 +45,7 @@
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\background.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\cocktail.png" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\trashbin.png" BaseSize="168,208" />
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -59,8 +60,10 @@
 
 	<ItemGroup>
 		<None Remove="Resources\Images\background.png" />
+		<None Remove="Resources\Images\camera.svg" />
 		<None Remove="Resources\Images\cocktail.png" />
 	  <None Remove="Resources\Images\splash_background.png" />
+	  <None Remove="Resources\Images\trashbin.png" />
 	</ItemGroup>
 
 	<ItemGroup>
