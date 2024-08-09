@@ -16,9 +16,9 @@ public partial class DetailsPage : ContentPage
         _viewModel.ShowIngredients = true;
         _viewModel.ShowInstructions = true;
         _viewModel.ShowNotes = true;
-        _viewModel.ToggleInstructionsBtnText = "˄";
-        _viewModel.ToggleIngredientsBtnText = "˄";
-        _viewModel.ToggleNotesBtnText = "˄";
+        _viewModel.ToggleInstructionsBtnText = Constants.UpArrowFilePath;
+        _viewModel.ToggleIngredientsBtnText = Constants.UpArrowFilePath;
+        _viewModel.ToggleNotesBtnText = Constants.UpArrowFilePath;
         await _viewModel.Refresh();
     }
     

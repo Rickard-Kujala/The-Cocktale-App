@@ -5,9 +5,19 @@
     xmlns:model="clr-namespace:DrinksApp.Model"
     xmlns:viewmodel="clr-namespace:DrinksApp.ViewModel"
     xmlns:ios="clr-namespace:Microsoft.Maui.Controls.PlatformConfiguration.iOSSpecific;assembly=Microsoft.Maui.Controls"
-    Title="Drinks"
+    Title ="Drinks"
     BackgroundColor="{StaticResource CocktailDark}"
     x:DataType="viewmodel:DrinksViewModel">
+
+    <NavigationPage.TitleView>
+        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
+            <Label Text="Drinks" 
+                   FontFamily="GreatVibes" 
+                   FontSize="24" 
+                   TextColor="Black"
+                   VerticalOptions="Center"/>
+        </StackLayout>
+    </NavigationPage.TitleView>
 
     <StackLayout>
         <!-- Search Bar -->
@@ -38,7 +48,7 @@
                      VerticalOptions="Center" 
                      Margin="5,0,0,0"/>
             </Grid>
-            <Button BackgroundColor="{StaticResource CocktailGreen}" Margin="5" Text="Search" Command="{Binding SearchCommand}"/>
+            <Button BackgroundColor="{StaticResource CocktailGreen}" Padding="5" Text="Search" Command="{Binding SearchCommand}"/>
         </StackLayout>
 
         <!-- CollectionView -->
@@ -47,25 +57,37 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Drink">
                         <Grid Padding="5" HorizontalOptions="Fill">
-                            <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                            <Frame Padding="5" HeightRequest="130" Style="{StaticResource CardView}">
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
-                                         Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DrinksViewModel}}, Path=GoToDrinkDetailsCommand}"
-                                         CommandParameter="{Binding .}"/>
+                                 Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DrinksViewModel}}, Path=GoToDrinkDetailsCommand}"
+                                 CommandParameter="{Binding .}"/>
                                 </Frame.GestureRecognizers>
-                                <Grid Padding="0" ColumnDefinitions="125,*" >
+                                <Grid Padding="0" VerticalOptions="CenterAndExpand">
+                                    <!-- Define ColumnDefinitions once -->
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
                                     <Image
-                                         Grid.Column="0"
-                                         Aspect="AspectFill"
-                                         HeightRequest="125"
-                                         Source="{Binding ThumbnailUrl}"
-                                         WidthRequest="125" />
+                                Grid.Column="0"
+                                Aspect="AspectFill"
+                                HeightRequest="100"
+                                WidthRequest="100"
+                                Source="{Binding ThumbnailUrl}">
+                                        <Image.Clip>
+                                            <EllipseGeometry
+                                        Center="50,50"
+                                        RadiusX="50"
+                                        RadiusY="50" />
+                                        </Image.Clip>
+                                    </Image>
                                     <StackLayout
-                                         Grid.Column="1"
-                                         Padding="10"
-                                         VerticalOptions="Center">
-                                        <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
-                                        <Label LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
+                                 Grid.Column="1"
+                                 Padding="10"
+                                 VerticalOptions="CenterAndExpand">
+                                        <Label FontFamily="thin" Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label FontFamily="thin" LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
                                     </StackLayout>
                                 </Grid>
                             </Frame>
@@ -74,6 +96,7 @@
                 </CollectionView.ItemTemplate>
             </CollectionView>
         </RefreshView>
+
 
         <StackLayout Padding="10" VerticalOptions="End"  Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
             <Button BackgroundColor="{StaticResource CocktailGrey}" Command="{Binding GetDrinksCommand}" IsEnabled="{Binding IsNotBusy}" Text="Get drink tip!" Margin="10" Style="{StaticResource ButtonOutline}"/>

@@ -15,6 +15,7 @@ namespace DrinksApp.ViewModel
             _repo = repo;
         }
         public bool IsRefreshing { get; set; }
+        
 
         [ObservableProperty]
         Drink drink;
@@ -35,6 +36,8 @@ namespace DrinksApp.ViewModel
                 await Shell.Current.DisplayAlert("oops...something happened!", e.Message, "OK");
             }
         }
+
+        #region ObservableProperty's
 
         [ObservableProperty]
         private bool showNotesSection;
@@ -66,27 +69,32 @@ namespace DrinksApp.ViewModel
         [ObservableProperty]
         private string photoPath;
 
-        //[ObservableProperty]
-        //private string notes;
+        [ObservableProperty]
+        private string notes;
 
-        //public DrinkDetailsViewModel()
-        //{
-        //    ShowInstructions = true;
-        //    ShowIngredients = true;
-        //}
+        #endregion 
+
+        #region RelayCommands
+
         [RelayCommand]
         private void ToggleNotes()
         {
             ShowNotes = !ShowNotes;
-            ToggleNotesBtnText = ShowNotes ? "˄" : "˅";
+            ToggleNotesBtnText = ShowNotes ? Constants.UpArrowFilePath : Constants.DownArrowFilePath;
         }
         [RelayCommand]
         private void ToggleInstructions()
         {
             ShowInstructions = !ShowInstructions;
-            ToggleInstructionsBtnText = ShowInstructions ? "˄" : "˅";
+            ToggleInstructionsBtnText = ShowInstructions ? Constants.UpArrowFilePath : Constants.DownArrowFilePath;
         }
 
+        [RelayCommand]
+        private void ToggleIngredients()
+        {
+            ShowIngredients = !ShowIngredients;
+            ToggleIngredientsBtnText = ShowIngredients ? Constants.UpArrowFilePath : Constants.DownArrowFilePath;
+        }
         [RelayCommand]
         private async Task DeletePhoto()
         {
@@ -96,12 +104,7 @@ namespace DrinksApp.ViewModel
             await Refresh();
         }
 
-        [RelayCommand]
-        private void ToggleIngredients()
-        {
-            ShowIngredients = !ShowIngredients;
-            ToggleIngredientsBtnText = ShowIngredients ? "˄" : "˅";
-        }
+       
         [RelayCommand]
         private async Task SaveNotes()
         {
@@ -119,20 +122,7 @@ namespace DrinksApp.ViewModel
                 await Shell.Current.DisplayAlert("Error updating notes", e.Message, "OK");
             }
         }
-        private string _notes;
-
-        public string Notes
-        {
-            get => _notes;
-            set
-            {
-                if (_notes != value)
-                {
-                    _notes = value;
-                    OnPropertyChanged();
-                }
-            }
-        }
+      
         [RelayCommand]
         private async Task CapturePhotoAsync()
         {
@@ -165,6 +155,9 @@ namespace DrinksApp.ViewModel
                 // Handle other exceptions
             }
         }
+
+        #endregion
+
         private async Task<string> SavePhotoToFileAsync(FileResult photo)
         {
             // Get a writable folder to store the photo

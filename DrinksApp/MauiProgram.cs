@@ -20,6 +20,8 @@ namespace DrinksApp
                 {
                     fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
+                    fonts.AddFont("GreatVibes-Regular.ttf", "GreatVibes");
+                    fonts.AddFont("thin.ttf", "thin");
                 });
 
 #if DEBUG

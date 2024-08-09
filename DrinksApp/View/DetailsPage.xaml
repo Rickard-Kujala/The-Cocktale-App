@@ -41,8 +41,8 @@
                     </Border>
                 </StackLayout>
                 <StackLayout Padding="10">
-                    
-                    <Label Margin="10" Text="{Binding Drink.Name}" FontSize="Title" HorizontalOptions="CenterAndExpand" />
+
+                    <Label Margin="10" FontFamily="GreatVibes" Text="{Binding Drink.Name}" FontSize="40" HorizontalOptions="CenterAndExpand" />
                     <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
                     
                    <!--Instructions Section-->
@@ -52,11 +52,17 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         
-                        <Label Text="Instructions" FontSize="Subtitle" VerticalOptions="Center" />
-                        <Button BackgroundColor="{StaticResource CocktailGrey}" FontSize="Large" Text="{Binding ToggleInstructionsBtnText}" Command="{Binding ToggleInstructionsCommand}" Grid.Column="1" VerticalOptions="Center" />
+                        <Label Text="Instructions" FontFamily="thin"  FontSize="Large" VerticalOptions="Center" />
+                        <ImageButton
+                            Grid.Column="1"
+                             Source="{Binding ToggleInstructionsBtnText}"
+                             Command="{Binding ToggleInstructionsCommand}"
+                             IsVisible="true"
+                             HeightRequest="30"
+                             WidthRequest="30" />   
                         
                     </Grid>
-                    <Label Text="{Binding Drink.Instructions}" Padding="10" IsVisible="{Binding ShowInstructions}" />
+                    <Label FontFamily="thin" FontSize="Subtitle" Text="{Binding Drink.Instructions}" Padding="10" IsVisible="{Binding ShowInstructions}" />
 
                     <BoxView Margin="5" HeightRequest="1" BackgroundColor="{StaticResource CocktailGrey}" HorizontalOptions="FillAndExpand" />
 
@@ -68,8 +74,14 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Text="Ingredients" FontSize="Subtitle" VerticalOptions="Center" />
-                        <Button BackgroundColor="{StaticResource CocktailGrey}" FontSize="Large" Text="{Binding ToggleIngredientsBtnText}" Command="{Binding ToggleIngredientsCommand}" Grid.Column="1" VerticalOptions="Center" />
+                        <Label Text="Ingredients" FontFamily="thin" FontSize="Large" VerticalOptions="Center" />
+                        <ImageButton
+                             Grid.Column="1"
+                             Source="{Binding ToggleIngredientsBtnText}"
+                             Command="{Binding ToggleIngredientsCommand}"
+                             IsVisible="true"
+                             HeightRequest="30"
+                             WidthRequest="30" />       
                     </Grid>
 
                     <CollectionView ItemsSource="{Binding Drink.Ingredients}" SelectionMode="None" IsVisible="{Binding ShowIngredients}">
@@ -79,7 +91,7 @@
                         <CollectionView.ItemTemplate>
                             <DataTemplate x:DataType="model:Ingredient">
                                 <StackLayout  Padding="10">
-                                    <Label HorizontalOptions="CenterAndExpand">
+                                    <Label FontFamily="thin" HorizontalOptions="CenterAndExpand">
                                         <Label.Text>
                                             <MultiBinding StringFormat="{}{0} {1}">
                                                 <Binding Path="Name" />
@@ -101,14 +113,20 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <Label Text="Notes" FontSize="Subtitle" VerticalOptions="Center" />
-
-                            <Button BackgroundColor="{StaticResource CocktailGrey}" FontSize="Large" Text="{Binding ToggleNotesBtnText}" Command="{Binding ToggleNotesCommand}" Grid.Column="1" VerticalOptions="Center" />
+                            <Label Text="Notes" FontFamily="thin" FontSize="Large" VerticalOptions="Center" />
+                            <ImageButton
+                                 Grid.Column="1"
+                                 Source="{Binding ToggleNotesBtnText}"
+                                 Command="{Binding ToggleNotesCommand}"
+                                 IsVisible="{Binding ShowNotesSection}"
+                                 HeightRequest="30"
+                                 WidthRequest="30" />
                         </Grid>
                         <StackLayout IsVisible="{Binding ShowNotes}">
 
                             <!-- Editor for Notes -->
                             <Editor x:Name="TextInputArea"
+                                    FontFamily="thin"
                                 IsVisible="{Binding ShowNotes}"
                                 Placeholder="{Binding Notes}"
                                 TextColor="Black"
@@ -127,6 +145,7 @@
 
                                 <!-- Display Captured Image -->
                                 <Image
+                                    
                                     Grid.Row="0"
                                     Source="{Binding PhotoPath}"
                                     HeightRequest="150"
@@ -145,16 +164,16 @@
                                         Source="Resources/Images/camera.svg"
                                         Command="{Binding CapturePhotoCommand}"
                                         IsVisible="{Binding ShowNotesSection}"
-                                        HeightRequest="50"
-                                        WidthRequest="50" />
+                                        HeightRequest="40"
+                                        WidthRequest="40" />
 
                                     <!-- Delete Image Button -->
                                     <ImageButton
                                         Source="Resources/Images/trashbin.png"
                                         Command="{Binding DeletePhotoCommand}"
                                         IsVisible="{Binding ShowImage}"
-                                        HeightRequest="50"
-                                        WidthRequest="50" />    
+                                        HeightRequest="40"
+                                        WidthRequest="40" />    
                                 </StackLayout>
                             </Grid>
 

@@ -32,25 +32,32 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Grid Padding="5" HorizontalOptions="Fill">
-                                <Frame HeightRequest="125" Style="{StaticResource CardView}">
+                                <Frame Padding="5" HeightRequest="130" Style="{StaticResource CardView}">
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}, Path=GoToDrinkDetailsCommand}"
                                     CommandParameter="{Binding .}"/>
                                     </Frame.GestureRecognizers>
-                                    <Grid Padding="0" ColumnDefinitions="125,*" >
+                                    <Grid Padding="0" ColumnDefinitions="100,*" >
                                         <Image
-                                            Grid.Column="0"
-                                            Aspect="AspectFill"
-                                            HeightRequest="125"
-                                            Source="{Binding ThumbnailUrl}"
-                                            WidthRequest="125" />
+                                             Grid.Column="0"
+                                             Aspect="AspectFill"
+                                             HeightRequest="100"
+                                             WidthRequest="100"
+                                             Source="{Binding ThumbnailUrl}">
+                                            <Image.Clip>
+                                                <EllipseGeometry
+                                             Center="50,50"
+                                             RadiusX="50"
+                                             RadiusY="50" />
+                                            </Image.Clip>
+                                        </Image>
                                         <StackLayout
                                             Grid.Column="1"
                                             Padding="10"
                                             VerticalOptions="Center">
-                                            <Label Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
-                                            <Label LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
+                                            <Label FontFamily="thin" Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
+                                            <Label FontFamily="thin" LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
                                             <!--<Label Text="..." TextColor="Gray" VerticalOptions="End" HorizontalOptions="End"  />-->
                                         </StackLayout>
                                     </Grid>

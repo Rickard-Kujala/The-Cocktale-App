@@ -42,6 +42,8 @@
 		<MauiSplashScreen Include="Resources\Splash\splash_background.png" />
 		<!-- Images -->
 		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\down.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\up.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\background.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\cocktail.png" BaseSize="168,208" />
@@ -59,11 +61,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Remove="Resources\Fonts\GreatVibes-Regular.ttf" />
+		<None Remove="Resources\Fonts\Lieselotte.otf" />
+		<None Remove="Resources\Fonts\thin.ttf" />
 		<None Remove="Resources\Images\background.png" />
 		<None Remove="Resources\Images\camera.svg" />
 		<None Remove="Resources\Images\cocktail.png" />
+		<None Remove="Resources\Images\down.svg" />
 	  <None Remove="Resources\Images\splash_background.png" />
 	  <None Remove="Resources\Images\trashbin.png" />
+	  <None Remove="Resources\Images\up.svg" />
 	</ItemGroup>
 
 	<ItemGroup>
