@@ -47,7 +47,7 @@
                 <CollectionView.ItemTemplate>
                     <DataTemplate x:DataType="model:Drink">
                         <Grid Padding="5" HorizontalOptions="Fill">
-                            <Frame Padding="5" HeightRequest="130" Style="{StaticResource CardView}">
+                            <Frame Padding="5" HeightRequest="130" >
                                 <Frame.GestureRecognizers>
                                     <TapGestureRecognizer 
                                  Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:DrinksViewModel}}, Path=GoToDrinkDetailsCommand}"
@@ -76,8 +76,8 @@
                                  Grid.Column="1"
                                  Padding="10"
                                  VerticalOptions="CenterAndExpand">
-                                        <Label FontFamily="thin" Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
-                                        <Label FontFamily="thin" LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
+                                        <Label FontFamily="thin"  Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
+                                        <Label FontFamily="thin" LineBreakMode="TailTruncation" MaxLines="3" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
                                     </StackLayout>
                                 </Grid>
                             </Frame>
@@ -89,8 +89,8 @@
 
 
         <StackLayout Padding="10" VerticalOptions="End"  Orientation="Horizontal" HorizontalOptions="CenterAndExpand">
-            <Button BackgroundColor="{StaticResource CocktailGrey}" Command="{Binding GetDrinksCommand}" IsEnabled="{Binding IsNotBusy}" Text="Get drink tip!" Margin="10" Style="{StaticResource ButtonOutline}"/>
-            <Button BackgroundColor="{StaticResource CocktailGrey}" Command="{Binding GoToLibraryCommand}" IsEnabled="{Binding IsNotBusy}" Text="See my drinks!" Margin="10" Style="{StaticResource ButtonOutline}"/>
+            <Button BackgroundColor="{StaticResource CocktailGrey}" Command="{Binding GetDrinksCommand}" IsEnabled="{Binding IsNotBusy}" Text="Get drink tip!" Margin="10" />
+            <Button BackgroundColor="{StaticResource CocktailGrey}" Command="{Binding GoToLibraryCommand}" IsEnabled="{Binding IsNotBusy}" Text="See my drinks!" Margin="10" />
         </StackLayout>
 
         <ActivityIndicator  IsRunning="{Binding IsBusy}" IsVisible="{Binding IsBusy}" Color="{StaticResource Primary}" VerticalOptions="Center" HorizontalOptions="Center"/>

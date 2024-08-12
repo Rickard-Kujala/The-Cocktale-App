@@ -32,7 +32,7 @@
                                 </SwipeItems>
                             </SwipeView.RightItems>
                             <Grid Padding="5" HorizontalOptions="Fill">
-                                <Frame Padding="5" HeightRequest="130" Style="{StaticResource CardView}">
+                                <Frame Padding="5" HeightRequest="130" >
                                     <Frame.GestureRecognizers>
                                         <TapGestureRecognizer 
                                     Command="{Binding Source={RelativeSource AncestorType={x:Type viewmodel:LibraryViewModel}}, Path=GoToDrinkDetailsCommand}"
@@ -56,8 +56,8 @@
                                             Grid.Column="1"
                                             Padding="10"
                                             VerticalOptions="Center">
-                                            <Label FontFamily="thin" Style="{StaticResource LargeLabel}" Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
-                                            <Label FontFamily="thin" LineBreakMode="TailTruncation" MaxLines="3" Style="{StaticResource LargeLabel}" Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
+                                            <Label FontFamily="thin"  Text="{Binding Name}"  FontSize="Medium" FontAttributes="Bold"/>
+                                            <Label FontFamily="thin" LineBreakMode="TailTruncation" MaxLines="3"  Text="{Binding Instructions}" VerticalOptions="StartAndExpand"/>
                                             <!--<Label Text="..." TextColor="Gray" VerticalOptions="End" HorizontalOptions="End"  />-->
                                         </StackLayout>
                                     </Grid>
