@@ -188,6 +188,7 @@ namespace DrinksApp.ViewModel
                 ShowNotesSection = true;
                 PhotoPath = Drink.PhotoPath;
                 Notes = Drink.Notes;
+                if (string.IsNullOrEmpty(Notes)) Notes = "Start typing here to add a note..";
                 ShowNotes = true;
                 if (!string.IsNullOrEmpty(PhotoPath))
                 {

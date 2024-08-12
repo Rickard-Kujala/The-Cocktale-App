@@ -9,8 +9,10 @@ namespace DrinksApp
     public static class Constants
     {
         public const string Alcoholic = "Alcoholic";
-        public const string UpArrowFilePath= "Resources/Images/up.svg";
-        public const string DownArrowFilePath= "Resources/Images/down.svg";
+        //public const string UpArrowFilePath= "Resources/Images/up.svg";
+        //public const string DownArrowFilePath= "Resources/Images/down.svg";
+        public const string UpArrowFilePath = "up";
+        public const string DownArrowFilePath = "down";
         public const string DatabaseFilename = "DrinksSQLite.db3";
         public const SQLite.SQLiteOpenFlags Flags =
             // open the database in read/write mode

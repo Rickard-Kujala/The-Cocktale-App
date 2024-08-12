@@ -46,6 +46,10 @@
 		<MauiImage Update="Resources\Images\background.svg" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\cocktail.png" BaseSize="168,208" />
 		<MauiImage Update="Resources\Images\trashbin.png" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\up.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\down.svg" BaseSize="168,208" />
+		<MauiImage Update="Resources\Images\camera.svg" BaseSize="168,208" />
+
 
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />

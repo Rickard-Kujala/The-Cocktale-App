@@ -57,7 +57,7 @@
                             Grid.Column="1"
                              Source="{Binding ToggleInstructionsBtnText}"
                              Command="{Binding ToggleInstructionsCommand}"
-                             IsVisible="true"
+                             IsVisible="True"
                              HeightRequest="30"
                              WidthRequest="30" />   
                         
@@ -161,7 +161,7 @@
 
                                     <!-- Capture Image Button -->
                                     <ImageButton
-                                        Source="Resources/Images/camera.svg"
+                                        Source="camera"
                                         Command="{Binding CapturePhotoCommand}"
                                         IsVisible="{Binding ShowNotesSection}"
                                         HeightRequest="40"
@@ -169,7 +169,7 @@
 
                                     <!-- Delete Image Button -->
                                     <ImageButton
-                                        Source="Resources/Images/trashbin.png"
+                                        Source="trashbin"
                                         Command="{Binding DeletePhotoCommand}"
                                         IsVisible="{Binding ShowImage}"
                                         HeightRequest="40"
