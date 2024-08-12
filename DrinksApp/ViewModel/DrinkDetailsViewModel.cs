@@ -175,6 +175,11 @@ namespace DrinksApp.ViewModel
         public async Task Refresh()
         {
             var drinkFromDb = await _repo.GetWithId(Drink.Id);
+            ShowIngredients = true;
+            ShowInstructions = true;
+            ToggleInstructionsBtnText = Constants.UpArrowFilePath;
+            ToggleIngredientsBtnText = Constants.UpArrowFilePath;
+            ToggleNotesBtnText = Constants.UpArrowFilePath;
 
             if (drinkFromDb is not null)
             {
@@ -183,19 +188,20 @@ namespace DrinksApp.ViewModel
                 ShowNotesSection = true;
                 PhotoPath = Drink.PhotoPath;
                 Notes = Drink.Notes;
+                ShowNotes = true;
+                if (!string.IsNullOrEmpty(PhotoPath))
+                {
+                    ShowImage = true;
+                }
+                else
+                {
+                    ShowImage = false;
+                }
             }
             else
             {
                 ShowSaveToLibraryBtn= true;
                 ShowNotesSection= false; 
-            }
-            if (!string.IsNullOrEmpty(PhotoPath))
-            {
-                ShowImage = true;
-            }
-            else
-            {
-                ShowImage= false;
             }
         }
     }

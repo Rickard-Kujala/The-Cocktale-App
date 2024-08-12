@@ -9,16 +9,6 @@
     BackgroundColor="{StaticResource CocktailDark}"
     x:DataType="viewmodel:DrinksViewModel">
 
-    <NavigationPage.TitleView>
-        <StackLayout Orientation="Horizontal" VerticalOptions="Center" HorizontalOptions="Center">
-            <Label Text="Drinks" 
-                   FontFamily="GreatVibes" 
-                   FontSize="24" 
-                   TextColor="Black"
-                   VerticalOptions="Center"/>
-        </StackLayout>
-    </NavigationPage.TitleView>
-
     <StackLayout>
         <!-- Search Bar -->
         <StackLayout Padding="5">
